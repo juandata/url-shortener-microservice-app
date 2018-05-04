@@ -1,27 +1,26 @@
-Welcome to Glitch
-=================
-
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
-
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
-
-Find out more [about Glitch](https://glitch.com/about).
+# API Micro Service: URL Shortener Microservice
 
 
-Your Project
-------------
+**Description**: 
+This is one of the 10 FreeCodeCamp challenges designed to get the FCC backend certification. You can check the specific requirements here: https://www.freecodecamp.org/challenges/url-shortener-microservice
 
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
+This microservice is a FullStack javaScript app that shortens the url adresss you add after /new/ example:
 
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
+Lets say you want the url adress http://www.juandavidarce.co/ to be shortened, then you write in the url: 
+https://url-shortener-microservice-app.glitch.me/new/http://www.juandavidarce.co/
+You will get an object response with the original url you add as a parameter and the new shortened url:
+{ "original_url":"http://www.juandavidarce.co/", "short_url":"https://url-shortener-microservice-app.glitch.me/XXX" }
 
 
-Made by [Fog Creek](https://fogcreek.com/)
--------------------
+**Error Handling**:
+If you write an incorrect url the app will return an error response in the object:
+https://url-shortener-microservice-app.glitch.me/new/htp://wrongurl.com
+**User stories**:
 
-\ ゜o゜)ノ
+1.  I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.
+
+2.  If I pass an invalid URL that doesn't follow the valid http://www.example.com format, the JSON response will contain an error instead.
+
+3. When I visit that shortened URL, it will redirect me to my original link.
+
+**Developed by** *Juan David Tabares Arce*
