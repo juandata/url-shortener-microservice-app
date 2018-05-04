@@ -10,8 +10,9 @@ var MongoClient = mongodb.MongoClient;
 
 //(Focus on This Variable)
 var urlRemoteEnvVariable= process.env.MONGOLAB_URI;
+var secreto = process.env.SECRET;
 console.log(urlRemoteEnvVariable);
-console.log("esto");
+console.log(secreto);
 
 /*
 // init project
