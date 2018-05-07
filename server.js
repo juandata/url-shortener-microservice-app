@@ -12,6 +12,7 @@ var MongoClient = mongodb.MongoClient;
 var express = require('express');
 var app = express();
 var address = process.env.SECRET;
+var jsonResponse = {};
 
 
 //we've started you off with Express, 
@@ -28,7 +29,7 @@ app.get("/", function (req, res) {
 app.get(/\d/, function (req, res, next) {
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
   searchOnDatabase(fullUrl);
-  next();
+  res.send("hello");
 });
 app.use('/new', function (req, res){
   res.send("hola");
@@ -84,7 +85,6 @@ if (err) {
   original_url : res[0].original_url,
   short_url : res[0].short_url
   };
-    return response;
 });
 
   //Close connection
