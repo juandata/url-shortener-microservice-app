@@ -26,14 +26,11 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
   //res.redirect(url);
 });
-app.get(/\d/, async (req, res, next) => {
+app.get(/\d/, function (req, res, next)  {
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-  try {
-  const theReply = await searchOnDatabase(fullUrl);
+  const theReply =  searchOnDatabase(fullUrl);
   res.json(theReply);
-  } catch (e) {
-    next(e);
-  }
+  
   
 });
 app.use('/new', function (req, res){
@@ -73,8 +70,8 @@ dbo.collection('urls').insert( jsonObject, function(err, ok){
 });
 }
 
-function searchOnDatabase(fullUrl){
-MongoClient.connect(address, function (err, db) {
+function  searchOnDatabase(fullUrl) {
+   MongoClient.connect(address, function (err, db) {
    //(Focus on This Variable)
 if (err) {
   console.log('Unable to connect to the mongoDB server. Error:', err);
@@ -95,4 +92,4 @@ if (err) {
   db.close();
 } 
 });
-} 
+  }
