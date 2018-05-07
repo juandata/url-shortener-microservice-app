@@ -37,18 +37,22 @@ if (err) {
   console.log('Connection established to mlab.com');
   // do some work here with the database.
   var  dbo = db.db("urlshortened");
-  dbo.collection('urls').find({ short_url: fullUrl}).toArray(function(err, res){
-  if (err) throw err;    
-  /*jsonObject = {
+  var dbo1 = dbo.collection('urls').findOne({ short_url: fullUrl});
+  console.log(dbo1);
+   /* 
+  .toArray(function(err, res){
+  if (err) throw err; 
+  jsonObject = {
   original_url : res[0].original_url,
   short_url : res[0].short_url
-}*/
+}
 console.log("redirecting...");
 response.redirect(jsonObject.original_url);
-
+*/
   //Close connection
   db.close();
-});
+  response.send("nada");
+//});
 } 
 });
 });
