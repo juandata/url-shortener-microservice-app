@@ -11,6 +11,8 @@ var MongoClient = mongodb.MongoClient;
 //init project
 var express = require('express');
 var app = express();
+var address = process.env.SECRET;
+
 
 //we've started you off with Express, 
 //but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -21,10 +23,7 @@ app.use(express.static('public'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
-  //(Focus on This Variable)
-var urlRemoteEnvVariable= process.env.MONGOLAB_URI;
-var secreto = process.env.SECRET;
-console.log(urlRemoteEnvVariable, secreto);
+
 });
 
 // listen for requests :)
@@ -33,14 +32,22 @@ var listener = app.listen(process.env.PORT, function () {
 });
 
 /*
-MongoClient.connect(urlRemoteEnvVariable, function (err, db) {
+MongoClient.connect(address, function (err, db) {
+   //(Focus on This Variable)
 if (err) {
   console.log('Unable to connect to the mongoDB server. Error:', err);
 } else {
-  console.log('Connection established to mlab.com:15340/urlshortened');
+  console.log('Connection established to mlab.com');
 
   // do some work here with the database.
-
+  var jsonObject = {
+  name : "Juan David",
+  lastName : "Tabares Arce"
+}, dbo = db.db("urlshortened");
+dbo.collection('users4').insert( jsonObject, function(err, ok){
+  if (err) throw err;
+  if (ok) console.log('document inserted!', ok);
+});
 
   //Close connection
   db.close();
