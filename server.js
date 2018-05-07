@@ -23,12 +23,12 @@ app.use(express.static('public'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (request, response, ) {
   response.sendFile(__dirname + '/views/index.html');
-  //connectToDatabase();
 });
 app.use('/new', function (req, res){
   res.send("hola");
   var url = req.url.substr(1);
   console.log( url);
+  connectToDatabase(url);
   //res.redirect(url);
 });
 // listen for requests :)
@@ -36,7 +36,7 @@ var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
-function connectToDatabase(){
+function connectToDatabase(url){
   MongoClient.connect(address, function (err, db) {
    //(Focus on This Variable)
 if (err) {
@@ -45,11 +45,12 @@ if (err) {
   console.log('Connection established to mlab.com');
 
   // do some work here with the database.
+  var number = Math.floor((Math.random() * 10000) + 1);
   var jsonObject = {
-  name : "Juan David",
-  lastName : "Tabares Arce"
+  original_url : url,
+  short_url : "https://url-shortener-microservice-app.glitch.me/" + number
 }, dbo = db.db("urlshortened");
-dbo.collection('users4').insert( jsonObject, function(err, ok){
+dbo.collection('urls').insert( jsonObject, function(err, ok){
   if (err) throw err;
   if (ok) console.log('document inserted!', ok);
 });
