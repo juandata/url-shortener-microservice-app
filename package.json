@@ -15,6 +15,6 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/juandata/TimeStampMicroService.git"
+		"url": "https://github.com/juandata/url-shortener-microservice-app.git"
 	}
 }
