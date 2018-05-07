@@ -27,9 +27,9 @@ app.get("/", function (request, response, ) {
 });
 app.use('/new', function (req, res){
   res.send("hola");
-  var url = req.url.split('/');
-  var param = req.params;
-  console.log( param);
+  var url = req.url.substr(1);
+  console.log( url);
+  //res.redirect(url);
 });
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
