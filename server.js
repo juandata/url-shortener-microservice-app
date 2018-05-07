@@ -26,8 +26,10 @@ app.get("/", function (request, response, ) {
   //connectToDatabase();
 });
 app.use('/new', function (req, res){
-  res.send("hola new");
-  console.log(req.url);
+  res.send("hola");
+  var url = req.url.split('/');
+  var param = req.params;
+  console.log( param);
 });
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
