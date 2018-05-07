@@ -37,8 +37,9 @@ if (err) {
   console.log('Connection established to mlab.com');
   // do some work here with the database.
   var  dbo = db.db("urlshortened");
-  var dbo1 = dbo.collection('urls').findOne({ short_url: fullUrl});
-  console.log(dbo1);
+  dbo.collection('urls').find({ short_url: fullUrl}).limit(1).next(function(err, doc){
+  if(!doc) {}
+  });
    /* 
   .toArray(function(err, res){
   if (err) throw err; 
