@@ -8,13 +8,6 @@ var MongoClient = mongodb.MongoClient;
 
 // Connection URL. This is where your mongodb server is running.
 
-//(Focus on This Variable)
-var urlRemoteEnvVariable= process.env.MONGOLAB_URI;
-var secreto = process.env.SECRET;
-console.log(urlRemoteEnvVariable);
-console.log(secreto);
-
-
 //init project
 var express = require('express');
 var app = express();
@@ -28,6 +21,10 @@ app.use(express.static('public'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
+  //(Focus on This Variable)
+var urlRemoteEnvVariable= process.env.MONGOLAB_URI;
+var secreto = process.env.SECRET;
+console.log(urlRemoteEnvVariable, secreto);
 });
 
 // listen for requests :)
@@ -35,7 +32,7 @@ var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
-
+/*
 MongoClient.connect(urlRemoteEnvVariable, function (err, db) {
 if (err) {
   console.log('Unable to connect to the mongoDB server. Error:', err);
@@ -48,4 +45,4 @@ if (err) {
   //Close connection
   db.close();
 }
-});
+});*/
