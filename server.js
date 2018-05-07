@@ -24,15 +24,16 @@ app.use(express.static('public'));
 app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-  searchOnDatabase(fullUrl);
+  //searchOnDatabase(fullUrl);
+  //res.redirect(url);
+
 });
 app.use('/new', function (req, res){
   res.send("hola");
   var url = req.url.substr(1);
-  let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  let fullUrl = req.protocol + '://' + req.get('host') + '/';
   console.log( url, fullUrl);
-  //writeToDatabase(url, fullUrl);
-  //res.redirect(url);
+  writeToDatabase(url, fullUrl);
 });
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
