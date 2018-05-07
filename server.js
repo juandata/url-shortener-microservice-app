@@ -26,7 +26,9 @@ app.get("/", function (req, res) {
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
   //searchOnDatabase(fullUrl);
   //res.redirect(url);
-
+});
+app.get(/a/, function (req, res) {
+  res.send('/a/')
 });
 app.use('/new', function (req, res){
   res.send("hola");
@@ -89,4 +91,4 @@ if (err) {
   db.close();
 }
 });
-}
+} 
