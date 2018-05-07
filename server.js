@@ -12,7 +12,7 @@ var MongoClient = mongodb.MongoClient;
 var express = require('express');
 var app = express();
 var address = process.env.SECRET;
-var jsonResponse = {};
+var jsonObject = {};
 
 
 //we've started you off with Express, 
@@ -26,10 +26,15 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
   //res.redirect(url);
 });
-app.get(/\d/, function (req, res, next) {
+app.get(/\d/, async (req, res, next) => {
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-  searchOnDatabase(fullUrl);
-  res.send("hello");
+  try {
+  const theReply = await searchOnDatabase(fullUrl);
+  res.send(theReply);
+  } catch (e) {
+    next(e);
+  }
+  
 });
 app.use('/new', function (req, res){
   res.send("hola");
@@ -81,10 +86,12 @@ if (err) {
   dbo.collection('urls').find({ short_url: fullUrl})
 .toArray(function(err, res){
   if (err) throw err;
-  var response = {
+  jsonObject = {
   original_url : res[0].original_url,
   short_url : res[0].short_url
-  };
+}
+ console.log(jsonObject);
+    return "hey";
 });
 
   //Close connection
