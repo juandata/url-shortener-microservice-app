@@ -21,12 +21,13 @@ var address = process.env.SECRET;
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (request, response) {
+app.get("/", function (request, response, ) {
   response.sendFile(__dirname + '/views/index.html');
   //connectToDatabase();
 });
-app.get('/new', function (req, res){
-  console.log("new");
+app.use('/new', function (req, res){
+  res.send("hola new");
+  console.log(req.url);
 });
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
