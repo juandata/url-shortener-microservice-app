@@ -37,19 +37,15 @@ if (err) {
   console.log('Connection established to mlab.com');
   // do some work here with the database.
   var  dbo = db.db("urlshortened");
-  
   dbo.collection('urls').find({ short_url: fullUrl}).toArray(function(err, res){
-  if (err) throw err;
-   if(jsonObject.original_url == "undefined"){
-      res.send("The Url is not in the database");
-    }
-    else {
-       jsonObject = {
+  if (err) throw err;    
+  /*jsonObject = {
   original_url : res[0].original_url,
   short_url : res[0].short_url
-}
+}*/
+console.log("redirecting...");
 response.redirect(jsonObject.original_url);
-}
+
   //Close connection
   db.close();
 });
