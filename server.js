@@ -40,13 +40,16 @@ if (err) {
   
   dbo.collection('urls').find({ short_url: fullUrl}).toArray(function(err, res){
   if (err) throw err;
-  jsonObject = {
+   if(jsonObject.original_url == "undefined"){
+      res.send("The Url is not in the database");
+    }
+    else {
+       jsonObject = {
   original_url : res[0].original_url,
   short_url : res[0].short_url
 }
-   //response.json(jsonObject);
-    response.redirect(jsonObject.original_url);
-
+response.redirect(jsonObject.original_url);
+}
   //Close connection
   db.close();
 });
