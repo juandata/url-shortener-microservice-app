@@ -28,7 +28,8 @@ app.get("/", function (req, res) {
 });
 app.get(/\d/, function (req, res, next)  {
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-   var z = MongoClient.connect(address, function (err, db) {
+  var dbo2 = {};
+   MongoClient.connect(address, function (err, db) {
    //(Focus on This Variable)
 if (err) {
   console.log('Unable to connect to the mongoDB server. Error:', err);
@@ -36,23 +37,21 @@ if (err) {
   console.log('Connection established to mlab.com');
   // do some work here with the database.
   var  dbo = db.db("urlshortened");
-  dbo.collection('urls').find({ short_url: fullUrl})
-.toArray(function(err, res){
+  var dbo1 = dbo.collection('urls').find({ short_url: fullUrl});
+  dbo2 = dbo1.toArray(function(err, res){
   if (err) throw err;
   jsonObject = {
   original_url : res[0].original_url,
   short_url : res[0].short_url
 }
  console.log("1", jsonObject);
-    return jsonObject;
-});
-  console.log("2", jsonObject);
   //Close connection
   db.close();
+  return "HEY";
+});
 } 
 });
-    res.json(z);
-    console.log(z);
+  console.log("2", dbo2); res.send("hayth");
 });
 app.use('/new', function (req, res){
   res.send("hola");
