@@ -30,7 +30,7 @@ app.get(/\d/, async (req, res, next) => {
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
   try {
   const theReply = await searchOnDatabase(fullUrl);
-  res.send(theReply);
+  res.json(theReply);
   } catch (e) {
     next(e);
   }
@@ -80,7 +80,6 @@ if (err) {
   console.log('Unable to connect to the mongoDB server. Error:', err);
 } else {
   console.log('Connection established to mlab.com');
-
   // do some work here with the database.
   var  dbo = db.db("urlshortened");
   dbo.collection('urls').find({ short_url: fullUrl})
@@ -91,11 +90,9 @@ if (err) {
   short_url : res[0].short_url
 }
  console.log(jsonObject);
-    return "hey";
 });
-
   //Close connection
   db.close();
-}
+} 
 });
 } 
