@@ -30,8 +30,6 @@ app.get(/\d/, function (req, res, next)  {
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
   const theReply =  searchOnDatabase(fullUrl);
   res.json(theReply);
-  
-  
 });
 app.use('/new', function (req, res){
   res.send("hola");
@@ -69,9 +67,9 @@ dbo.collection('urls').insert( jsonObject, function(err, ok){
 }
 });
 }
-
+/*
 function  searchOnDatabase(fullUrl) {
-   MongoClient.connect(address, function (err, db) {
+     MongoClient.connect(address, function (err, db) {
    //(Focus on This Variable)
 if (err) {
   console.log('Unable to connect to the mongoDB server. Error:', err);
@@ -92,4 +90,6 @@ if (err) {
   db.close();
 } 
 });
+  
   }
+*/
