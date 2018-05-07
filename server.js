@@ -23,12 +23,12 @@ app.use(express.static('public'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
-  let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-  //searchOnDatabase(fullUrl);
   //res.redirect(url);
 });
-app.get(/a/, function (req, res) {
-  res.send('/a/')
+app.get(/\d/, function (req, res, next) {
+  let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  searchOnDatabase(fullUrl);
+  next();
 });
 app.use('/new', function (req, res){
   res.send("hola");
@@ -84,7 +84,7 @@ if (err) {
   original_url : res[0].original_url,
   short_url : res[0].short_url
   };
-  res.json(response);
+    return response;
 });
 
   //Close connection
