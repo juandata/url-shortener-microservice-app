@@ -23,7 +23,9 @@ app.use(express.static('public'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.use("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
-  console.log(req.url);
+  var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  console.log(fullUrl);
+  console.log(req);
 });
 app.use('/new', function (req, res){
   res.send("hola");
@@ -61,25 +63,3 @@ dbo.collection('urls').insert( jsonObject, function(err, ok){
 }
 });
 }
-/*
-MongoClient.connect(address, function (err, db) {
-   //(Focus on This Variable)
-if (err) {
-  console.log('Unable to connect to the mongoDB server. Error:', err);
-} else {
-  console.log('Connection established to mlab.com');
-
-  // do some work here with the database.
-  var jsonObject = {
-  name : "Juan David",
-  lastName : "Tabares Arce"
-}, dbo = db.db("urlshortened");
-dbo.collection('users4').insert( jsonObject, function(err, ok){
-  if (err) throw err;
-  if (ok) console.log('document inserted!', ok);
-});
-
-  //Close connection
-  db.close();
-}
-});*/
