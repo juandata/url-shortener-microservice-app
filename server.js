@@ -26,9 +26,9 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
   //res.redirect(url);
 });
-app.get(/\d/, function (req, res, next)  {
+app.get(/\d/, function (req, response, next)  {
   let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-  var dbo2 = {};
+
    MongoClient.connect(address, function (err, db) {
    //(Focus on This Variable)
 if (err) {
@@ -37,21 +37,21 @@ if (err) {
   console.log('Connection established to mlab.com');
   // do some work here with the database.
   var  dbo = db.db("urlshortened");
-  var dbo1 = dbo.collection('urls').find({ short_url: fullUrl});
-  dbo2 = dbo1.toArray(function(err, res){
+  
+  dbo.collection('urls').find({ short_url: fullUrl}).toArray(function(err, res){
   if (err) throw err;
   jsonObject = {
   original_url : res[0].original_url,
   short_url : res[0].short_url
 }
- console.log("1", jsonObject);
+   //response.json(jsonObject);
+    response.redirect(jsonObject.original_url);
+
   //Close connection
   db.close();
-  return "HEY";
 });
 } 
 });
-  console.log("2", dbo2); res.send("hayth");
 });
 app.use('/new', function (req, res){
   res.send("hola");
