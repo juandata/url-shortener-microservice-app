@@ -38,31 +38,32 @@ if (err) {
   // do some work here with the database.
   var  dbo = db.db("urlshortened");
   dbo.collection('urls').find({ short_url: fullUrl}).limit(1).next(function(err, doc){
-  if(!doc) {}
+  if(!doc) {
+    response.send("the url does not exist in the database, try again with a correct number");
+  }
+    else {
+      console.log("redirecting...");
+      response.redirect(doc.original_url);
+    }
   });
-   /* 
-  .toArray(function(err, res){
-  if (err) throw err; 
-  jsonObject = {
-  original_url : res[0].original_url,
-  short_url : res[0].short_url
-}
-console.log("redirecting...");
-response.redirect(jsonObject.original_url);
-*/
   //Close connection
   db.close();
-  response.send("nada");
 //});
 } 
 });
 });
 app.use('/new', function (req, res){
-  res.send("hola");
   var url = req.url.substr(1);
-  let fullUrl = req.protocol + '://' + req.get('host') + '/';
+  var number = Math.floor((Math.random() * 10000) + 1);
+  let fullUrl = req.protocol + '://' + req.get('host') + '/' + number;
   console.log( url, fullUrl);
   writeToDatabase(url, fullUrl);
+  var body = {
+    "original_url": url,
+    "short_url": fullUrl
+  }
+    res.json(body);
+
 });
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
@@ -78,10 +79,9 @@ if (err) {
   console.log('Connection established to mlab.com');
 
   // do some work here with the database.
-  var number = Math.floor((Math.random() * 10000) + 1);
   var jsonObject = {
   original_url : url,
-  short_url : fullUrl + number
+  short_url : fullUrl
 }, dbo = db.db("urlshortened");
 dbo.collection('urls').insert( jsonObject, function(err, ok){
   if (err) throw err;
