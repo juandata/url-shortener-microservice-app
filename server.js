@@ -14,13 +14,13 @@ var secreto = process.env.SECRET;
 console.log(urlRemoteEnvVariable);
 console.log(secreto);
 
-/*
-// init project
+
+//init project
 var express = require('express');
 var app = express();
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
+//we've started you off with Express, 
+//but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
@@ -34,8 +34,8 @@ app.get("/", function (request, response) {
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
-*/
-/*
+
+
 MongoClient.connect(urlRemoteEnvVariable, function (err, db) {
 if (err) {
   console.log('Unable to connect to the mongoDB server. Error:', err);
@@ -48,4 +48,4 @@ if (err) {
   //Close connection
   db.close();
 }
-});*/
+});
