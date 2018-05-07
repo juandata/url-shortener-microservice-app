@@ -21,8 +21,9 @@ var address = process.env.SECRET;
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (request, response, ) {
-  response.sendFile(__dirname + '/views/index.html');
+app.use("/", function (req, res) {
+  res.sendFile(__dirname + '/views/index.html');
+  console.log(req.url);
 });
 app.use('/new', function (req, res){
   res.send("hola");
