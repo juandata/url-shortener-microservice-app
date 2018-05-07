@@ -21,17 +21,17 @@ var address = process.env.SECRET;
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.use("/", function (req, res) {
+app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
-  var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-  console.log(fullUrl);
-  console.log(req);
+  let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  searchOnDatabase(fullUrl);
 });
 app.use('/new', function (req, res){
   res.send("hola");
   var url = req.url.substr(1);
-  console.log( url);
-  connectToDatabase(url);
+  let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  console.log( url, fullUrl);
+  //writeToDatabase(url, fullUrl);
   //res.redirect(url);
 });
 // listen for requests :)
@@ -39,7 +39,7 @@ var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
-function connectToDatabase(url){
+function writeToDatabase(url, fullUrl){
   MongoClient.connect(address, function (err, db) {
    //(Focus on This Variable)
 if (err) {
@@ -51,11 +51,37 @@ if (err) {
   var number = Math.floor((Math.random() * 10000) + 1);
   var jsonObject = {
   original_url : url,
-  short_url : "https://url-shortener-microservice-app.glitch.me/" + number
+  short_url : fullUrl + number
 }, dbo = db.db("urlshortened");
 dbo.collection('urls').insert( jsonObject, function(err, ok){
   if (err) throw err;
   if (ok) console.log('document inserted!', ok);
+});
+
+  //Close connection
+  db.close();
+}
+});
+}
+
+function searchOnDatabase(fullUrl){
+MongoClient.connect(address, function (err, db) {
+   //(Focus on This Variable)
+if (err) {
+  console.log('Unable to connect to the mongoDB server. Error:', err);
+} else {
+  console.log('Connection established to mlab.com');
+
+  // do some work here with the database.
+  var  dbo = db.db("urlshortened");
+  dbo.collection('urls').find({ short_url: fullUrl})
+.toArray(function(err, res){
+  if (err) throw err;
+  var response = {
+  original_url : res[0].original_url,
+  short_url : res[0].short_url
+  };
+  res.json(response);
 });
 
   //Close connection
