@@ -25,7 +25,9 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
   //connectToDatabase();
 });
-
+app.get('/new', function (req, res){
+  console.log("new");
+});
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);

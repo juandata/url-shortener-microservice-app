@@ -43,3 +43,126 @@
   0%, 100%    {transform: scale(1.02);}
   50%         {transform: scale(0.98);}
 }
+
+/*Footer*/
+/*effect of CSS positioning for Affix */
+
+ body {
+      position: relative; 
+  }
+#presentacion {
+  color: white;
+  background-image: url(https://raw.githubusercontent.com/juandata/medios/master/webdesign.jpg);
+  background-size: cover;
+}
+#section3 {
+  color: white;
+  background-image: url(https://raw.githubusercontent.com/juandata/medios/master/portada.jpg);
+  background-size: cover;
+}
+#presentacion > div > h1 {    
+  -webkit-text-stroke: black 1px;
+  color: #76daff;
+  font-weight: bolder;
+}
+#foto { width: 8%; heigth: 10%; margin-left: 10px;}
+  .affix {
+      top:0;
+      width: 100%;
+      z-index: 9999 !important;
+  }
+  .navbar {
+      margin-bottom: 0px;
+  }
+
+  .affix ~ .container-fluid {
+     position: relative;
+     top: 50px;
+  }
+  #section1 {padding-top:50px;min-height:500px;color: #fff; background-color: #1E88E5;}
+  #section2 {padding-top:50px;min-height:500px;color: #fff; background-color: #101010;}
+  #section3 {padding-top:50px;min-height:500px;color: #fff; background-color: #ff9800;}
+  #section41 {padding-top:50px;min-height:500px;color: #fff; background-color: #00bcd4;}
+  #section42 {padding-top:50px;min-height:fit-content;color: #fff; background-color: #009688;}
+
+
+.tumbnails {
+  min-height: 300px!important;
+}
+.list-group-item {transition: .5s;}
+.list-group-item:hover { 
+  font-size: large;
+  background-color: #00bcd9!important;
+}
+/* Set a specific color for each brand */
+.iconos {
+   padding: 20px;
+    font-size: 30px;
+    width: auto;
+    text-align: center;
+    text-decoration: none!important;
+    border-radius: 30px;
+    padding: 12px;
+  transition: 0.7s;
+  margin: 0.5em;
+  
+}
+.iconos:hover { opacity: 0.7;
+}
+/* Facebook */
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+  
+}
+
+/* Twitter */
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+/* github */
+.fa-github {
+    background: white;
+    color: black;
+}
+/* codepen */
+.fa-codepen {
+    background: black;
+    color: white;
+}
+/* codecamp */
+.fa-free-code-camp {
+    background: green;
+    color: white;
+}
+/* linkedin */
+.fa-linkedin {
+    background: #337ab7;
+    color: white;
+}
+/* google + */
+.fa-google-plus {
+    background: red;
+    color: white;
+}
+/* rss  */
+.fa-rss {
+    background: #fc8c00;
+    color: black;
+}
+.pie{
+  width: 100%;
+    height: fit-content;
+    background-color: #1d1d1d;
+    color: white;
+}
+@media screen and (max-width : 600px) {
+#presentacion > div > h1, #presentacion > div > h3{
+  font-size: large;
+}
+  #foto {display: none;}
+}
+p {
+ margin: auto!important;
+}
